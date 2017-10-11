@@ -19,13 +19,13 @@ io.on('connection', (socket) => {
     console.log('User was disconnected');
   });
 
-  socket.emit('newMessage', {
-    from: 'John',
-    text: 'Hey. Ok.',
-    createdAt: 123123
-  });
   socket.on('createMessage', (message) => {
     console.log('createMessage', message);
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime()
+    });
   });
 });
 const port = process.env.PORT || 3000;
